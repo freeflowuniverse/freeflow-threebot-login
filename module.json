@@ -1,9 +1,9 @@
 {
     "id": "threebot_login",
     "name": "Threebot Login module",
-    "description": "Provides a RESTful API to the HumHub installation",
+    "description": "Provides Login Support against 3bot Login: https://login.threefold.me",
     "keywords": [
-        "api", "rest"
+        "login", "3bot", "threebot"
     ],
     "version": "0.0.1",
     "humhub": {
