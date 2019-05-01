@@ -33,17 +33,35 @@
  
 ## Installation
 
-### Manual way
+#### Add configuration entry
+
+Add the following to `protected/config/common.php`
+
+```buildoutcfg
+'authClientCollection' => [
+            'clients' => [
+                '3bot' => [
+                    'class' => 'humhub\modules\threebot_login\authclient\ThreebotAuth',
+                    'clientId' => '3bot',
+                ]
+            ]
+]
+
+```
+#### Install module
+
+##### Manual way
 1. Download module files and put it into: **/protected/modules/threebot_login**
 2. Make sure module directory owned by Web user : `chmod -R www-data:www-data {humhub-Path}/protected/modules/threebot_login
 2. Enable module (Administration -> Modules -> Installed -> Threebot Login -> Enable)
 
-### Automatic way (command line)
+##### Automatic way (command line)
 
 ```bash
 cd {humhub-installation-dir}/protected
 cp -r humhub-modules-rest {humhub-installation-dir}/protected/modules/threebot_login
 chown -R www-data:www-data modules/threebot_login
+./yii module/list
 ./yii module/enable threebot_login
 ```
 

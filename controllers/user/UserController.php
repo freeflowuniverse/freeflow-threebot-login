@@ -12,6 +12,8 @@ use humhub\modules\rest\definitions\UserDefinitions;
 use humhub\modules\user\models\Password;
 use humhub\modules\user\models\Profile;
 use humhub\modules\user\models\User;
+use humhub\modules\user\models\Auth;
+use humhub\modules\threebot_login\authclient\ThreebotAuth;
 
 use Yii;
 use yii\web\HttpException;
@@ -24,26 +26,10 @@ use yii\helpers\Json;
  */
 class UserController extends Controller
 {
-
-    public function actionAuth()
-        {
-
-            $baseString = get_class($this) . '-' . time();
-            if (Yii::$app->has('session')) {
-                $baseString .= '-' . Yii::$app->session->getId();
-            }
-            $state =  hash('sha256', uniqid($baseString, true));
-
-            Yii::$app->session -> set("state", $state);
-            $returnUrl =  Yii::$app->urlManager -> createUrl("threebot_login/user/user/login", array());
-            $this->redirect("https://login.threefold.me?state=" . $state . "&redirecturl=" . Yii::$app->urlManager->createAbsoluteUrl(['/']) . "threebot_login/user/user/login");
-        }
-
     public function actionLogin()
     {
         $signedhash = Yii::$app->request -> get('signedhash');
         $username = Yii::$app->request -> get('username');
-
 
         $client = new Client();
         $client -> setUri('https://login.threefold.me/api/verify');
@@ -52,37 +38,61 @@ class UserController extends Controller
         $client -> setRawBody(Json::encode(array(
                 'username' => $username,
                 'signedhash' =>  $signedhash,
-                'hash' => Yii::$app->session -> get("state")
+                'hash' => Yii::$app->session -> get("authState")
             )));
 
         $response = $client->dispatch($client -> getRequest());
 
         //  the POST was successful
         if ($response->isSuccess()) {
-            $user = User::findOne(['username' => $username]);
-            if ($user === null) {
-                throw new \yii\web\HttpException(401, 'User Not found!');
+            // LOGGED IN
+            if(!Yii::$app->user->isGuest){
+                $authUser = Auth::findOne(['user_id' => Yii::$app->user -> id, 'source' => '3bot']);
+                $user = Yii::$app->user;
+
+                // Connect
+                if ($authUser == null){
+                    $newUSer = new Auth();
+                    $newUSer -> source_id = $username;
+                    $newUSer -> source = '3bot';
+                    $newUSer -> user_id = $user -> id;
+                    $newUSer -> save();
+                }else if ($authUser -> source_id != $username){
+                    // User was connected with another account
+                    // delete old one and reconnect
+                    $authUser -> delete();
+                    $newUSer = new Auth();
+                    $newUSer -> source_id = $username;
+                    $newUSer -> source = '3bot';
+                    $newUSer -> user_id = $user -> id;
+                    $newUSer -> save();
+                }
+
+            }else { // NOT LOGGED IN
+                $authUser = Auth::findOne(['source_id' => $username, 'source' => '3bot']);
+                $user = User::findOne(['username' => $username]);
+
+                // create user if does not exist [New user]
+                if ($user == null && $authUser == null){
+
+
+                }else if ($user != null && $authUser == null){ // user already exists with same name - connect
+                    $newUSer = new Auth();
+                    $newUSer -> source_id = $username;
+                    $newUSer -> source = '3bot';
+                    $newUSer -> user_id = $user -> id;
+                    $newUSer -> save();
+                }else if ($user == null && $authUser != null){ // user was connected, but usernames are different
+                    $user = User::findOne(['id' => $authUser -> user_id]);
+                }
+
+                Yii::$app->user->login($user);
             }
 
-            Yii::$app->user->login($user);
+            Yii::$app->user->setCurrentAuthClient(new ThreebotAuth());
             $this->redirect(Yii::$app->urlManager->createAbsoluteUrl(['/']));
         }else{
             throw new \yii\web\HttpException($response -> getStatusCode(), $response -> getBody());
         }
-
-
     }
-
-    protected function returnError($statusCode = 400, $message = 'Invalid request', $additional = [])
-    {
-        Yii::$app->response->statusCode = $statusCode;
-        return array_merge(['code' => $statusCode, 'message' => $message], $additional);
-    }
-    protected function returnSuccess($message = 'Request successful', $statusCode = 200, $additional = [])
-    {
-        Yii::$app->response->statusCode = $statusCode;
-        return array_merge(['code' => $statusCode, 'message' => $message], $additional);
-    }
-
-
 }

@@ -20,8 +20,6 @@ class Events
 
             // User: Default Controller
             ['pattern' => 'threebot_login/login', 'route' => 'threebot_login/user/user/login', 'verb' => ['GET', 'HEAD']],
-            ['pattern' => 'threebot_login/auth', 'route' => 'threebot_login/user/user/auth', 'verb' => ['GET', 'HEAD']],
-
         ], true);
     }
 }
