@@ -47,8 +47,17 @@ class UserController extends Controller
         if ($response->isSuccess()) {
             // LOGGED IN
             if(!Yii::$app->user->isGuest){
-                $authUser = Auth::findOne(['user_id' => Yii::$app->user -> id, 'source' => '3bot']);
                 $user = Yii::$app->user;
+
+                $connection = Auth::findOne(['source_id' => $username, 'source' => '3bot']);
+
+                // There's 3bot connection existing but linked to different account
+                // Give error in this case
+                if ($connection != null && $connection -> user_id != $user -> id){
+                    throw new \yii\web\HttpException(403, "3-Bot account used is linked to another user!");
+                }
+
+                $authUser = Auth::findOne(['user_id' => Yii::$app->user -> id, 'source' => '3bot']);
 
                 // Connect
                 if ($authUser == null){
@@ -58,7 +67,7 @@ class UserController extends Controller
                     $newUSer -> user_id = $user -> id;
                     $newUSer -> save();
                 }else if ($authUser -> source_id != $username){
-                    // User was connected with another account
+                    // User was connected with another 3bot account
                     // delete old one and reconnect
                     $authUser -> delete();
                     $newUSer = new Auth();
@@ -70,7 +79,7 @@ class UserController extends Controller
 
             }else { // NOT LOGGED IN
                 $authUser = Auth::findOne(['source_id' => $username, 'source' => '3bot']);
-                $user = User::findOne(['username' => $username]);
+                $user = User::findOne(['username' => $username]); // @TODO: Check for email as well otherwise, we will link user to wrong account
 
                 // create user if does not exist [New user]
                 if ($user == null && $authUser == null){
