@@ -10,6 +10,7 @@ use humhub\modules\user\models\Auth;
 class ThreebotAuth extends OAuth2
 {
     public $authUrl    = 'https://login.threefold.me';
+    public $keyPair = ''; // Freeflow Crypto key Pair (will be set automatically from settings)
 
     /**
      * Composes user authorization URL.
@@ -21,11 +22,16 @@ class ThreebotAuth extends OAuth2
      * to another custom one /3bot/login provided by login function in controller
      *
      */
+
     public function buildAuthUrl(array $params = [])
     {
+        $publicKey = sodium_crypto_sign_publickey(base64_decode($this -> keyPair));
 
         $defaultParams = [
-            'redirecturl' => Yii::$app->urlManager->createAbsoluteUrl(['/']) . "threebot_login/login"
+            'appid' => 'freeflowpages',
+            'scope' => 'user:email',
+            'publickey' => base64_encode(sodium_crypto_sign_ed25519_pk_to_curve25519($publicKey)),
+            'redirecturl' => Yii::$app->urlManager->createAbsoluteUrl(['/']) . "threebot_login/login",
         ];
 
         if ($this->validateAuthState) {

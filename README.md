@@ -35,7 +35,12 @@
 
 #### Add configuration entry
 
-Add the following to `protected/config/common.php`
+- Generate Cryptographic Key Pair
+```php
+php -r "echo PHP_EOL;echo base64_encode(sodium_crypto_sign_keypair());echo PHP_EOL;echo PHP_EOL;"
+```
+
+- Add the following to `protected/config/common.php`
 
 ```buildoutcfg
 'authClientCollection' => [
@@ -43,6 +48,8 @@ Add the following to `protected/config/common.php`
                 '3bot' => [
                     'class' => 'humhub\modules\threebot_login\authclient\ThreebotAuth',
                     'clientId' => '3bot',
+                    'keyPair' => '{Generated_Key_Pair}'
+
                 ]
             ]
 ]

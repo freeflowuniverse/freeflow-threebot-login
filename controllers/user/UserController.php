@@ -10,9 +10,11 @@ namespace humhub\modules\threebot_login \controllers\user;
 use humhub\components\Controller;
 use humhub\modules\rest\definitions\UserDefinitions;
 use humhub\modules\user\models\Password;
-use humhub\modules\user\models\Profile;
 use humhub\modules\user\models\User;
+use humhub\modules\user\models\GroupUser;
+use humhub\modules\user\models\Profile;
 use humhub\modules\user\models\Auth;
+use humhub\modules\content\models\ContentContainer;
 use humhub\modules\threebot_login\authclient\ThreebotAuth;
 
 use Yii;
@@ -30,78 +32,127 @@ class UserController extends Controller
     {
         $signedhash = Yii::$app->request -> get('signedhash');
         $username = Yii::$app->request -> get('username');
+        $data = Json::decode(Yii::$app->request -> get('data'));
+
+        if($signedhash == null || $username == null || $data == null){
+            throw new \yii\web\HttpException(400, 'Bad request');
+        }
+
+        $config = require('/var/www/html/humhub/protected/config/common.php');
+        $keyPair = $config['components']['authClientCollection']['clients']['3bot']['keyPair'];
+
+        // Get user public key
 
         $client = new Client();
-        $client -> setUri('https://login.threefold.me/api/verify');
+        $client -> setUri('https://login.threefold.me/api/users/' . $username);
         $client -> setHeaders(array('Content-Type' => 'application/json'));
-        $client->setMethod('POST');
-        $client -> setRawBody(Json::encode(array(
-                'username' => $username,
-                'signedhash' =>  $signedhash,
-                'hash' => Yii::$app->session -> get("authState")
-            )));
-
+        $client->setMethod('GET');
         $response = $client->dispatch($client -> getRequest());
 
         //  the POST was successful
-        if ($response->isSuccess()) {
-            // LOGGED IN
-            if(!Yii::$app->user->isGuest){
-                $user = Yii::$app->user;
+        if (!$response->isSuccess()) {
+            throw new \yii\web\HttpException($response -> getStatusCode(), 'Error while Getting user public key');
+        }
 
-                $connection = Auth::findOne(['source_id' => $username, 'source' => '3bot']);
+        $nonce = base64_decode($data['nonce']);
+        $cipherText = base64_decode($data['ciphertext']);
 
-                // There's 3bot connection existing but linked to different account
-                // Give error in this case
-                if ($connection != null && $connection -> user_id != $user -> id){
-                    throw new \yii\web\HttpException(403, "3-Bot account used is linked to another user!");
-                }
+        $freeflowPrivateKey = sodium_crypto_sign_secretkey(base64_decode($keyPair));
 
-                $authUser = Auth::findOne(['user_id' => Yii::$app->user -> id, 'source' => '3bot']);
+        $userPublicKey = base64_decode(Json::decode($response -> getBody())['publicKey']);
+        $state = sodium_crypto_sign_open(base64_decode($signedhash),$userPublicKey);
 
-                // Connect
-                if ($authUser == null){
-                    $newUSer = new Auth();
-                    $newUSer -> source_id = $username;
-                    $newUSer -> source = '3bot';
-                    $newUSer -> user_id = $user -> id;
-                    $newUSer -> save();
-                }else if ($authUser -> source_id != $username){
-                    // User was connected with another 3bot account
-                    // delete old one and reconnect
-                    $authUser -> delete();
-                    $newUSer = new Auth();
-                    $newUSer -> source_id = $username;
-                    $newUSer -> source = '3bot';
-                    $newUSer -> user_id = $user -> id;
-                    $newUSer -> save();
-                }
+        if ($state != Yii::$app->session -> get("authState")){
+            throw new \yii\web\HttpException(400, 'Invalid state');
+        }
 
-            }else { // NOT LOGGED IN
-                $authUser = Auth::findOne(['source_id' => $username, 'source' => '3bot']);
-                $user = User::findOne(['username' => $username]); // @TODO: Check for email as well otherwise, we will link user to wrong account
+        $decryption_key = sodium_crypto_box_keypair_from_secretkey_and_publickey(
+            sodium_crypto_sign_ed25519_sk_to_curve25519($freeflowPrivateKey),
+            sodium_crypto_sign_ed25519_pk_to_curve25519($userPublicKey)
+         );
 
-                // create user if does not exist [New user]
-                if ($user == null && $authUser == null){
+        $decrypted = sodium_crypto_box_open($cipherText, $nonce, $decryption_key);
+
+        if ($decrypted == false){
+            throw new \yii\web\HttpException(400, 'Can not decrypt data');
+        }
+
+        $result = Json::decode($decrypted);
+        $email = $result['email']['email'];
+        $emailVerified = $result['email']['verified'];
 
 
-                }else if ($user != null && $authUser == null){ // user already exists with same name - connect
-                    $newUSer = new Auth();
-                    $newUSer -> source_id = $username;
-                    $newUSer -> source = '3bot';
-                    $newUSer -> user_id = $user -> id;
-                    $newUSer -> save();
-                }else if ($user == null && $authUser != null){ // user was connected, but usernames are different
-                    $user = User::findOne(['id' => $authUser -> user_id]);
-                }
+        if(!$emailVerified){
+            return $this->render('error', array('message' => "Email not verified, Please verify and try again"));
+        }
 
-                Yii::$app->user->login($user);
+        $authUser = Auth::findOne(['source_id' => $username, 'source' => '3bot']);
+
+        // LOGGED IN
+        if(!Yii::$app->user->isGuest){
+            $user = Yii::$app->user;
+
+            // There's 3bot connection existing but linked to different account
+            // Give error in this case
+            if ($authUser != null && $authUser -> user_id != $user -> id){
+                throw new \yii\web\HttpException(403, "3-Bot account used is linked to another user!");
             }
 
-            Yii::$app->user->setCurrentAuthClient(new ThreebotAuth());
-            $this->redirect(Yii::$app->urlManager->createAbsoluteUrl(['/']));
-        }else{
-            throw new \yii\web\HttpException($response -> getStatusCode(), $response -> getBody());
+            // Connect
+            if ($authUser == null){
+                $newUSer = new Auth();
+                $newUSer -> source_id = $username;
+                $newUSer -> source = '3bot';
+                $newUSer -> user_id = $user -> id;
+                $newUSer -> save();
+            }
+
+        }else { // NOT LOGGED IN
+            $user = User::findOne(['email' => $email]);
+
+            // create user if does not exist [New user]
+            if ($user == null && $authUser == null){
+
+                $user = new User();
+                $user -> username = $username;
+                $user -> email = $email;
+                $user -> save();
+                $user = User::findOne(['email' => $email]);
+
+                $profile = new Profile();
+                $profile->scenario = 'editAdmin';
+                $profile->user_id = $user -> id;
+                $profile-> save();
+
+                $contentContainer = new ContentContainer();
+                $contentContainer -> class = "humhub\\modules\\user\\models\\User";
+                $contentContainer -> pk = $user -> id;
+                $contentContainer -> owner_user_id = $user -> id;
+
+                $groupuser = new GroupUser();
+                $groupuser -> user_id = $user -> id;
+                $groupuser -> group_id = 2; // users group
+                $groupuser -> save();
+
+                $newUSer = new Auth();
+                $newUSer -> source_id = $username;
+                $newUSer -> source = '3bot';
+                $newUSer -> user_id = $user -> id;
+                $newUSer -> save();
+
+            }else if ($user != null && $authUser == null){ // user already exists with same email- connect
+                $newUSer = new Auth();
+                $newUSer -> source_id = $username;
+                $newUSer -> source = '3bot';
+                $newUSer -> user_id = $user -> id;
+                $newUSer -> save();
+            }else if ($user == null && $authUser != null){ // connection exists for 3bot, but [emails are different] // find which user and connect
+                $user = User::findOne(['id' => $authUser -> user_id]);
+            }
+
+            Yii::$app->user->login($user);
         }
+        Yii::$app->user->setCurrentAuthClient(new ThreebotAuth());
+        $this->redirect(Yii::$app->urlManager->createAbsoluteUrl(['/']));
     }
 }
