@@ -149,9 +149,16 @@ class UserController extends Controller
             }else if ($user == null && $authUser != null){ // connection exists for 3bot, but [emails are different] // find which user and connect
                 $user = User::findOne(['id' => $authUser -> user_id]);
             }
+	    
+	    $timeout = 2592000; // 1 month
+	    
+	    if (Yii::$app->getModule('user')->settings->get('auth.defaultUserIdleTimeoutSec')) {
+                $timeout = Yii::$app->getModule('user')->settings->get('auth.defaultUserIdleTimeoutSec');
+	    }
 
-            Yii::$app->user->login($user);
-        }
+            Yii::$app->user->login($user, $timeout);
+	}
+
         Yii::$app->user->setCurrentAuthClient(new ThreebotAuth());
         $this->redirect(Yii::$app->urlManager->createAbsoluteUrl(['/']));
     }
