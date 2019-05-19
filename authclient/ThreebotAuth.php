@@ -25,6 +25,9 @@ class ThreebotAuth extends OAuth2
 
     public function buildAuthUrl(array $params = [])
     {
+        $params = $_GET;
+        unset($params['authclient']);
+
         $publicKey = sodium_crypto_sign_publickey(base64_decode($this -> keyPair));
 
         $defaultParams = [
