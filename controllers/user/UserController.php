@@ -95,7 +95,7 @@ class UserController extends Controller
             // There's 3bot connection existing but linked to different account
             // Give error in this case
             if ($authUser != null && $authUser -> user_id != $user -> id){
-                throw new \yii\web\HttpException(403, "3-Bot account used is linked to another user!");
+                throw new \yii\web\HttpException(403, "3Bot account used is linked to another user!");
             }
 
             // Connect
