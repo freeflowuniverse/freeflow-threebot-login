@@ -16,7 +16,9 @@ use humhub\modules\user\models\Profile;
 use humhub\modules\user\models\Auth;
 use humhub\modules\content\models\ContentContainer;
 use humhub\modules\threebot_login\authclient\ThreebotAuth;
-
+use humhub\modules\user\models\Invite;
+use humhub\modules\space\models\Membership;
+use humhub\modules\space\models\Space;
 use Yii;
 use yii\web\HttpException;
 use Zend\Http\Request;
@@ -33,6 +35,16 @@ class UserController extends Controller
         $signedhash = Yii::$app->request -> get('signedhash');
         $username = Yii::$app->request -> get('username');
         $data = Json::decode(Yii::$app->request -> get('data'));
+        $inviteToken = Yii::$app->request -> get('token');
+
+        $userInvite = null;
+
+        if ($inviteToken != null){
+            $userInvite = Invite::findOne(['token' => $inviteToken]);
+            if (!$userInvite) {
+                throw new HttpException(404, 'Invalid registration token!');
+            }
+        }
 
         if($signedhash == null || $username == null || $data == null){
             throw new \yii\web\HttpException(400, 'Bad request');
@@ -44,7 +56,7 @@ class UserController extends Controller
         // Get user public key
 
         $client = new Client();
-        $client -> setUri('https://login.threefold.me/api/users/' . $username);
+	    $client -> setUri('https://login.threefold.me/api/users/' . $username);
         $client -> setHeaders(array('Content-Type' => 'application/json'));
         $client->setMethod('GET');
         $response = $client->dispatch($client -> getRequest());
@@ -149,15 +161,28 @@ class UserController extends Controller
             }else if ($user == null && $authUser != null){ // connection exists for 3bot, but [emails are different] // find which user and connect
                 $user = User::findOne(['id' => $authUser -> user_id]);
             }
-	    
-	    $timeout = 2592000; // 1 month
-	    
-	    if (Yii::$app->getModule('user')->settings->get('auth.defaultUserIdleTimeoutSec')) {
-                $timeout = Yii::$app->getModule('user')->settings->get('auth.defaultUserIdleTimeoutSec');
-	    }
 
+            $timeout = 2592000; // 1 month
+
+            if (Yii::$app->getModule('user')->settings->get('auth.defaultUserIdleTimeoutSec')) {
+                $timeout = Yii::$app->getModule('user')->settings->get('auth.defaultUserIdleTimeoutSec');
+            }            
             Yii::$app->user->login($user, $timeout);
-	}
+        }
+        
+        // No token sent, Try find invitation by email
+        if(!$userInvite){
+            $userInvite = Invite::findOne(['email' => $user -> email]);
+        }
+
+        if($userInvite){
+            if ($userInvite->language) {
+                Yii::$app->language = $userInvite->language;
+            }
+            $space = Space::findOne(['id' => $userInvite -> space_invite_id]);
+            $space -> inviteMember($user -> id, $userInvite -> user_originator_id, true);
+            $userInvite -> delete();
+        }
 
         Yii::$app->user->setCurrentAuthClient(new ThreebotAuth());
         $this->redirect(Yii::$app->urlManager->createAbsoluteUrl(['/']));
