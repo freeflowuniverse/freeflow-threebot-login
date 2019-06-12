@@ -56,9 +56,7 @@ class UserController extends Controller
         // Get user public key
 
         $client = new Client();
-        // For staging
-        #$client -> setUri('https://login.staging.jimber.org/api/users/' . $username);
-	    $client -> setUri('https://login.threefold.me/api/users/' . $username);
+        $client -> setUri('https://login.staging.jimber.org/api/users/' . $username);
         $client -> setHeaders(array('Content-Type' => 'application/json'));
         $client->setMethod('GET');
         $response = $client->dispatch($client -> getRequest());

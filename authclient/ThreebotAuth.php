@@ -9,7 +9,7 @@ use humhub\modules\user\models\Auth;
 
 class ThreebotAuth extends OAuth2
 {
-    public $authUrl    = 'https://login.threefold.me';
+    public $authUrl    = 'https://login.staging.jimber.org';
     public $keyPair = ''; // Freeflow Crypto key Pair (will be set automatically from settings)
 
     /**
