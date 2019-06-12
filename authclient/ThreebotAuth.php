@@ -27,14 +27,13 @@ class ThreebotAuth extends OAuth2
     {
         $params = $_GET;
         unset($params['authclient']);
-
         $publicKey = sodium_crypto_sign_publickey(base64_decode($this -> keyPair));
-
+        $redirectUrl = Yii::$app->urlManager->createAbsoluteUrl(['/']) . "threebot_login/login";
         $defaultParams = [
             'appid' => 'freeflowpages',
             'scope' => 'user:email',
             'publickey' => base64_encode(sodium_crypto_sign_ed25519_pk_to_curve25519($publicKey)),
-            'redirecturl' => Yii::$app->urlManager->createAbsoluteUrl(['/']) . "threebot_login/login",
+            'redirecturl' => $this->composeUrl($redirectUrl, array_merge($params)),
         ];
 
         if ($this->validateAuthState) {
@@ -43,7 +42,7 @@ class ThreebotAuth extends OAuth2
             $defaultParams['state'] = $authState;
         }
 
-        return $this->composeUrl($this->authUrl, array_merge($defaultParams, $params));
+        return $this->composeUrl($this->authUrl, array_merge($defaultParams));
     }
 
     protected function initUserAttributes() {}
