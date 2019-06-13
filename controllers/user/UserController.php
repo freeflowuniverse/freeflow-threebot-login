@@ -180,7 +180,9 @@ class UserController extends Controller
                 Yii::$app->language = $userInvite->language;
             }
             $space = Space::findOne(['id' => $userInvite -> space_invite_id]);
-            $space -> inviteMember($user -> id, $userInvite -> user_originator_id, true);
+            if ($space != null){
+                $space -> inviteMember($user -> id, $userInvite -> user_originator_id, true);
+            }
             $userInvite -> delete();
         }
 
