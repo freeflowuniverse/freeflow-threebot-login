@@ -171,7 +171,7 @@ class UserController extends Controller
         }
         
         // No token sent, Try find invitation by email
-        if(!$userInvite){
+        if(!$userInvite && Yii::$app->user->isGuest){
             $userInvite = Invite::findOne(['email' => $user -> email]);
         }
 
