@@ -19,7 +19,10 @@ class Events
         Yii::$app->urlManager->addRules([
 
             // User: Default Controller
-            ['pattern' => 'threebot_login/login', 'route' => 'threebot_login/user/user/login', 'verb' => ['GET', 'HEAD']],
+		['pattern' => 'threebot_login/login', 'route' => 'threebot_login/user/user/login', 'verb' => ['GET', 'HEAD']],
+                ['pattern' => 'threebot_login/about', 'route' => 'threebot_login/user/user/about', 'verb' => ['GET', 'HEAD']],
+                ['pattern' => 'threebot_login/how', 'route' => 'threebot_login/user/user/how', 'verb' => ['GET', 'HEAD']],
+
         ], true);
     }
 }
