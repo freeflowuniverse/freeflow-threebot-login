@@ -30,6 +30,16 @@ use yii\helpers\Json;
  */
 class UserController extends Controller
 {
+    public function actionHow()
+    {
+        return $this->render('login_howto', []);
+    }
+
+    public function actionAbout()
+    {
+    	return $this->render('about', []);
+    }
+
     public function actionLogin()
     {
         $signedhash = Yii::$app->request -> get('signedhash');
