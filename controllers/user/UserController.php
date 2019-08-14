@@ -42,6 +42,12 @@ class UserController extends Controller
 
     public function actionLogin()
     {
+        $err =  Yii::$app->request -> get('error');
+        if ($err != null){
+            if ($err == 'CancelledByUser'){
+                 throw new HttpException(401, 'Login attempt Cancelled by user');
+            }
+        }
         $signedhash = Yii::$app->request -> get('signedhash');
         $username = Yii::$app->request -> get('username');
         $data = Json::decode(Yii::$app->request -> get('data'));
