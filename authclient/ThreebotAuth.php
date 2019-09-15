@@ -31,7 +31,7 @@ class ThreebotAuth extends OAuth2
         $redirectUrl = "/threebot_login/login";
         $defaultParams = [
             'appid' => 'freeflowpages.com',
-            'scope' => 'user:email',
+            'scope' => '{"user": true, "email": true}',
             'publickey' => base64_encode(sodium_crypto_sign_ed25519_pk_to_curve25519($publicKey)),
             'redirecturl' => $this->composeUrl($redirectUrl, array_merge($params)),
         ];
