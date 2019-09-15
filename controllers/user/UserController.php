@@ -91,7 +91,7 @@ class UserController extends Controller
         $state = sodium_crypto_sign_open(base64_decode($signedhash),$userPublicKey);
 
         if ($state != Yii::$app->session -> get("authState")){
-            throw new \yii\web\HttpException(400, 'Invalid state');
+            throw new \yii\web\HttpException(401, 'Login Timeout! or Login attempt not recognized! Have you waited too long before login?');
         }
 
         $decryption_key = sodium_crypto_box_keypair_from_secretkey_and_publickey(
