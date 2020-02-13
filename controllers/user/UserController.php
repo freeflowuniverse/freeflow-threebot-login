@@ -48,7 +48,7 @@ class UserController extends Controller
                  throw new HttpException(401, 'Login attempt Cancelled by user');
             }
         }
-        $signedhash = Yii::$app->request -> get('signedhash');
+        $signedstate = Yii::$app->request -> get('signedState');
         $username = Yii::$app->request -> get('username');
         $data = Json::decode(Yii::$app->request -> get('data'));
         $inviteToken = Yii::$app->request -> get('token');
@@ -62,7 +62,7 @@ class UserController extends Controller
             }
         }
 
-        if($signedhash == null || $username == null || $data == null){
+        if($signedstate == null || $username == null || $data == null){
             throw new \yii\web\HttpException(400, 'Bad request');
         }
 
@@ -88,7 +88,7 @@ class UserController extends Controller
         $freeflowPrivateKey = sodium_crypto_sign_secretkey(base64_decode($keyPair));
 
         $userPublicKey = base64_decode(Json::decode($response -> getBody())['publicKey']);
-        $state = sodium_crypto_sign_open(base64_decode($signedhash),$userPublicKey);
+        $state = sodium_crypto_sign_open(base64_decode($signedstate),$userPublicKey);
 
         if ($state != Yii::$app->session -> get("authState")){
             throw new \yii\web\HttpException(401, 'Login Timeout! or Login attempt not recognized! Have you waited too long before login?');
@@ -107,11 +107,17 @@ class UserController extends Controller
 
         $result = Json::decode($decrypted);
         $email = $result['email']['email'];
-        $emailVerified = $result['email']['verified'];
+        $sei = $result['email']['sei'];
 
+        $client -> setUri('https://openkyc.live');
+        $client -> setHeaders(array('Content-Type' => 'application/json'));
+        $client->setMethod('POST');
+        $client -> setRawBody(Json::encode(['signedEmailIdentifier' => $sei]));
+        $response = $client->dispatch($client -> getRequest());
 
-        if(!$emailVerified){
-            return $this->render('error', array('message' => "Email not verified, Please verify and try again"));
+        //  the Email is not verified
+        if (!$response->isSuccess()) {
+                return $this->render('error', array('message' => "Email not verified, Please verify and try again"));
         }
 
         $authUser = Auth::findOne(['source_id' => $username, 'source' => '3bot']);
