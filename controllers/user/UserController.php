@@ -48,51 +48,74 @@ class UserController extends Controller
                  throw new HttpException(401, 'Login attempt Cancelled by user');
             }
         }
-        $signedstate = Yii::$app->request -> get('signedState');
-        $username = Yii::$app->request -> get('username');
-        $data = Json::decode(Yii::$app->request -> get('data'));
-        $inviteToken = Yii::$app->request -> get('token');
-
-        $userInvite = null;
-
-        if ($inviteToken != null){
-            $userInvite = Invite::findOne(['token' => $inviteToken]);
-            if (!$userInvite) {
-                throw new HttpException(404, 'Invalid registration token!');
-            }
-        }
-
-        if($signedstate == null || $username == null || $data == null){
-            throw new \yii\web\HttpException(400, 'Bad request');
-        }
 
         $config = require('/var/www/html/humhub/protected/config/common.php');
         $keyPair = $config['components']['authClientCollection']['clients']['3bot']['keyPair'];
 
-        // Get user public key
+        $data = Yii::$app->request -> get('signedAttempt');
 
+        if($data == null){
+            throw new \yii\web\HttpException(400, 'Bad request');
+        }
+
+        $data = Json::decode($data);
+
+        // Get username
+
+        $username = $data['doubleName'];
+
+        if($username == null){
+            throw new \yii\web\HttpException(400, 'Bad request');
+        }
+
+        // Get user public key
         $client = new Client();
-        $client -> setUri('https://login.staging.jimber.org/api/users/' . $username);
+	    $client -> setUri('https://login.staging.jimber.org/api/users/' . $username);
         $client -> setHeaders(array('Content-Type' => 'application/json'));
         $client->setMethod('GET');
         $response = $client->dispatch($client -> getRequest());
 
-        //  the POST was successful
+        //  the request was not successful
         if (!$response->isSuccess()) {
             throw new \yii\web\HttpException($response -> getStatusCode(), 'Error while Getting user public key');
         }
 
-        $nonce = base64_decode($data['nonce']);
-        $cipherText = base64_decode($data['ciphertext']);
-
-        $freeflowPrivateKey = sodium_crypto_sign_secretkey(base64_decode($keyPair));
-
         $userPublicKey = base64_decode(Json::decode($response -> getBody())['publicKey']);
-        $state = sodium_crypto_sign_open(base64_decode($signedstate),$userPublicKey);
+
+        // verify data
+        $signedData = $data['signedAttempt'];
+
+        if ($signedData == null ){
+            throw new \yii\web\HttpException(400, 'Bad request');
+        }
+
+        $verifiedData= sodium_crypto_sign_open(base64_decode($signedData),$userPublicKey);
+
+        $data = Json::decode($verifiedData);
+
+        if($data == null){
+            throw new \yii\web\HttpException(400, 'Bad request');
+        }
+
+;
+
+        // Match username in decrypted data to the one originally sent
+        if ($data['doubleName'] != $username ){
+            throw new \yii\web\HttpException(400, 'Bad request');
+        }
+
+        // Verify state
+        $state = $data['signedState'];
 
         if ($state != Yii::$app->session -> get("authState")){
             throw new \yii\web\HttpException(401, 'Login Timeout! or Login attempt not recognized! Have you waited too long before login?');
         }
+
+        $nonce = base64_decode($data['data']['nonce']);
+        $cipherText = base64_decode($data['data']['ciphertext']);
+
+        $freeflowPrivateKey = sodium_crypto_sign_secretkey(base64_decode($keyPair));
+
 
         $decryption_key = sodium_crypto_box_keypair_from_secretkey_and_publickey(
             sodium_crypto_sign_ed25519_sk_to_curve25519($freeflowPrivateKey),
@@ -119,6 +142,19 @@ class UserController extends Controller
         if (!$response->isSuccess()) {
                 return $this->render('error', array('message' => "Email not verified, Please verify and try again"));
         }
+
+        $inviteToken = Yii::$app->request -> get('token');
+
+        $userInvite = null;
+
+        if ($inviteToken != null){
+            $userInvite = Invite::findOne(['token' => $inviteToken]);
+            if (!$userInvite) {
+                throw new HttpException(404, 'Invalid registration token!');
+            }
+        }
+
+        $username = str_replace('.3bot', '', $username);
 
         $authUser = Auth::findOne(['source_id' => $username, 'source' => '3bot']);
 
@@ -188,10 +224,10 @@ class UserController extends Controller
 
             if (Yii::$app->getModule('user')->settings->get('auth.defaultUserIdleTimeoutSec')) {
                 $timeout = Yii::$app->getModule('user')->settings->get('auth.defaultUserIdleTimeoutSec');
-            }            
+            }
             Yii::$app->user->login($user, $timeout);
         }
-        
+
         // No token sent, Try find invitation by email
         if(!$userInvite && Yii::$app->user->isGuest){
             $userInvite = Invite::findOne(['email' => $user -> email]);
@@ -212,4 +248,3 @@ class UserController extends Controller
         $this->redirect(Yii::$app->urlManager->createAbsoluteUrl(['/']));
     }
 }
-
