@@ -297,7 +297,7 @@
         <div class="media-container-row">
             <div class="media-block m-auto" style="width: 37%;">
                 <div class="mbr-figure">
-                    <img src="../../../themes/Freeflow/assets/images/google-app.jpg" alt="" title="">
+                    <img src="../../../themes/Freeflow/assets/images/write3random.png" alt="" title="">
                 </div>
             </div>
             <div class="cards-block">
