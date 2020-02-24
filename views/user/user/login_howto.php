@@ -70,46 +70,12 @@
     </div>
 </section>
 
-<!-- <section class="header1 cid-rw0D6XMQKu" id="header16-1l">
-
-
-
-
-
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-md-10 align-center">
-
-                <h3 class="mbr-section-subtitle mbr-light pb-3 mbr-fonts-style display-2 how_title">
-                    Register using Android</h3>
-                <p class="mbr-text pb-3 mbr-fonts-style display-7">To register using just your Android smartphone, watch this video, or follow the  steps explained below. The only difference is that you won’t be prompted to enter an emoji after confirming your email, since the process is run entirely on your phone.</p>
-
-            </div>
-        </div>
-    </div>
-
-</section> -->
-
-<section class="cid-rw0DTq3z4l" id="video3-1m">
-
-
-
-    <figure class="mbr-figure align-center container">
-        <div class="video-block" style="width: 80%;">
-            <div><iframe class="mbr-embedded-video" src="https://www.youtube.com/embed/gIhu79wDsbE?rel=0&amp;amp;showinfo=0&amp;autoplay=0&amp;loop=0" width="1280" height="720" frameborder="0" allowfullscreen></iframe></div>
-        </div>
-    </figure>
-</section>
 
 <section class="counters4 counters cid-ruXVS1dW4O" id="counters4-c">
 
-
-
-
-
     <div class="container pt-4 mt-2">
-        <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2 how_title">Register using a computer and a smartphone (either iPhone or Android)</h2>
-        <h3 class="mbr-section-subtitle pb-5 align-left mbr-fonts-style display-5"><strong>Start on your computer</strong></h3>
+        <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2 how_title">Create an account using the 3Bot Connect app</h2>
+        
         <div class="media-container-row">
             <div class="media-block m-auto" style="width: 49%;">
                 <div class="mbr-figure">
@@ -128,7 +94,7 @@
                             <div class="card-text pt-4">
 
                                 <p class="mbr-content-text mbr-fonts-style display-7">
-                                    <br>Visit <a href="https://freeflowpages.com/">freeflowpages.com</a></p>
+                                    <br>Download the app from the <a href="https://play.google.com/store/apps/details?id=org.jimber.threebotlogin">App Store</a></p> or <a href="https://play.google.com/store/apps/details?id=org.jimber.threebotlogin">Play Store</a></p>
                             </div>
                         </div>
                     </div>
@@ -167,7 +133,7 @@
                             </div>
                             <div class="card-text pt-4">
 
-                                <p class="mbr-content-text mbr-fonts-style display-7">3Bot Login - Choose your 3Bot name - make sure the account doesn’t exist yet and click REGISTER</p>
+                                <p class="mbr-content-text mbr-fonts-style display-7">Open the app, navigate through the tutorial or select skip.</p>
                             </div>
                         </div>
                     </div>
@@ -207,7 +173,7 @@
                             <div class="card-text pt-4">
 
                                 <p class="mbr-content-text mbr-fonts-style display-7">
-                                    <br>Add your email address</p>
+                                    <br>Register now</p>
                             </div>
                         </div>
                     </div>
@@ -320,13 +286,13 @@
                         <div class="panel-item p-4 d-flex align-items-start">
                             <div class="card-img pr-3">
                                 <h3 class="img-text d-flex align-items-center justify-content-center how_title">
-                                    5
+                                    4
                                 </h3>
                             </div>
                             <div class="card-text pt-4">
 
                                 <p class="mbr-content-text mbr-fonts-style display-7">
-                                    <br>Scan QR Code page</p>
+                                    <br>Pick a name and email. This email will be used to send a verification mail later.</p>
                             </div>
                         </div>
                     </div>
@@ -360,7 +326,7 @@
                         <div class="panel-item p-4 d-flex align-items-start">
                             <div class="card-img pr-3">
                                 <h3 class="img-text d-flex align-items-center justify-content-center how_title">
-                                    6
+                                    5
                                 </h3>
                             </div>
                             <div class="card-text pt-4">
