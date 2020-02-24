@@ -430,11 +430,11 @@
 
         
         <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 51%;">
+<!--             <div class="media-block m-auto" style="width: 51%;">
                 <div class="mbr-figure">
                     <img src="../../../themes/Freeflow/assets/images/10.jpg" alt="" title="">
                 </div>
-            </div>
+            </div> -->
             <div class="cards-block">
                 <div class="cards-container">
                     <div class="card px-3 align-left col-12">
