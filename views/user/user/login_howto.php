@@ -94,7 +94,7 @@
                             <div class="card-text pt-4">
 
                                 <p class="mbr-content-text mbr-fonts-style display-7">
-                                    <br>Download the app from the <a href="https://play.google.com/store/apps/details?id=org.jimber.threebotlogin">App Store</a></p> or <a href="https://play.google.com/store/apps/details?id=org.jimber.threebotlogin">Play Store</a></p>
+                                    <br>Download the app from the <a href="https://itunes.apple.com/us/app/3bot-login/id1459845885?ls=1&mt=8" target="_blank">App Store</a></p> or <a href="https://play.google.com/store/apps/details?id=org.jimber.threebotlogin" target="_blank">Play Store</a></p>
                             </div>
                         </div>
                     </div>
@@ -137,9 +137,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -148,13 +145,7 @@
 
 <section class="counters4 counters cid-ruYfGDB03Q" id="counters4-g">
 
-
-
-
-
     <div class="container pt-4">
-
-
         <div class="media-container-row">
             <div class="media-block m-auto" style="width: 49%;">
                 <div class="mbr-figure">
@@ -177,16 +168,15 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="counters4 counters cid-rv9fuh5VmJ" id="counters4-l">
+
+
+<section class="counters4 counters cid-rv9KDcgmSt" id="counters4-p">
 
 
 
@@ -198,7 +188,7 @@
         <div class="media-container-row">
             <div class="media-block m-auto" style="width: 49%;">
                 <div class="mbr-figure">
-                    <img src="../../../themes/Freeflow/assets/images/key.png" alt="" title="">
+                    <img src="../../../themes/Freeflow/assets/images/awesomescreenshot-3botlogin-2019-07-03-12-7.png" alt="" title="">
                 </div>
             </div>
             <div class="cards-block">
@@ -212,15 +202,45 @@
                             </div>
                             <div class="card-text pt-4">
 
-                                <p class="mbr-content-text mbr-fonts-style display-7">Take note of your private key. This step is critical!&nbsp;<br><strong>IMPORTANT!</strong> Your 24-word recovery phrase will be displayed on the screen of your phone. This is the only time your recovery phrase will be displayed, so pay attention.
-<br>
-<br>Write the 24 words (in the same order as they are displayed) on a piece of paper and keep it in a secure place.&nbsp;<br></p>
+                                <p class="mbr-content-text mbr-fonts-style display-7">
+                                    <br>Pick a name and email. This email will be used to send a verification mail later.</p>
                             </div>
                         </div>
                     </div>
 
 
 
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="counters4 counters cid-rv9fuh5VmJ" id="counters4-l">
+    <div class="container pt-4">
+        <div class="media-container-row">
+            <div class="media-block m-auto" style="width: 49%;">
+                <div class="mbr-figure">
+                    <img src="../../../themes/Freeflow/assets/images/key.png" alt="" title="">
+                </div>
+            </div>
+            <div class="cards-block">
+                <div class="cards-container">
+                    <div class="card px-3 align-left col-12">
+                        <div class="panel-item p-4 d-flex align-items-start">
+                            <div class="card-img pr-3">
+                                <h3 class="img-text d-flex align-items-center justify-content-center how_title">
+                                    5
+                                </h3>
+                            </div>
+                            <div class="card-text pt-4">
+
+                                <p class="mbr-content-text mbr-fonts-style display-7">Take note of your private key. This step is critical!&nbsp;<br><strong>IMPORTANT!</strong> Your 24-word recovery phrase will be displayed on the screen of your phone. This is the only time your recovery phrase will be displayed, so pay attention.
+<br>
+<br>Write the 24 words (in the same order as they are displayed) on a piece of paper and keep it in a secure place.&nbsp;<br></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -265,46 +285,6 @@
     </div>
 </section>
 
-<section class="counters4 counters cid-rv9KDcgmSt" id="counters4-p">
-
-
-
-
-
-    <div class="container pt-4">
-
-
-        <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 49%;">
-                <div class="mbr-figure">
-                    <img src="../../../themes/Freeflow/assets/images/awesomescreenshot-3botlogin-2019-07-03-12-7.png" alt="" title="">
-                </div>
-            </div>
-            <div class="cards-block">
-                <div class="cards-container">
-                    <div class="card px-3 align-left col-12">
-                        <div class="panel-item p-4 d-flex align-items-start">
-                            <div class="card-img pr-3">
-                                <h3 class="img-text d-flex align-items-center justify-content-center how_title">
-                                    4
-                                </h3>
-                            </div>
-                            <div class="card-text pt-4">
-
-                                <p class="mbr-content-text mbr-fonts-style display-7">
-                                    <br>Pick a name and email. This email will be used to send a verification mail later.</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="counters4 counters cid-rv9RBfQOjW" id="counters4-r">
 
 
@@ -326,12 +306,12 @@
                         <div class="panel-item p-4 d-flex align-items-start">
                             <div class="card-img pr-3">
                                 <h3 class="img-text d-flex align-items-center justify-content-center how_title">
-                                    5
+                                    6
                                 </h3>
                             </div>
                             <div class="card-text pt-4">
 
-                                <p class="mbr-content-text mbr-fonts-style display-7"><br>Download the app from the <a href="https://itunes.apple.com/us/app/3bot-login/id1459845885?ls=1&mt=8" target="_blank">App Store</a> or <a href="https://play.google.com/store/apps/details?id=org.jimber.threebotlogin" target="_blank">Play Store</a><br></p>
+                                <p class="mbr-content-text mbr-fonts-style display-7"><br>Now confirm by writing 3 random words from the phrase you just wrote down.<br></p>
                             </div>
                         </div>
                     </div>
@@ -345,14 +325,7 @@
 </section>
 
 <section class="counters4 counters cid-rva66RjLlC" id="counters4-s">
-
-
-
-
-
     <div class="container pt-4">
-
-
         <div class="media-container-row">
             <div class="media-block m-auto" style="width: 34%;">
                 <div class="mbr-figure">
@@ -371,13 +344,10 @@
                             <div class="card-text pt-4">
 
                                 <p class="mbr-content-text mbr-fonts-style display-7">
-                                    Open the app and click “Scan QR code” - you need to allow the 3Bot app to access the camera to scan the QR code that was shown <strong>on your computer browser</strong></p>
+                                    Confirm everything is correct and finish</p>
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -410,7 +380,7 @@
                             </div>
                             <div class="card-text pt-4">
 
-                                <p class="mbr-content-text mbr-fonts-style display-7"><br>Choose new pin + confirm<br></p>
+                                <p class="mbr-content-text mbr-fonts-style display-7"><br>Choose and confirm your pincode<br></p>
                             </div>
                         </div>
                     </div>
@@ -423,19 +393,12 @@
     </div>
 </section>
 
-<section class="counters4 counters cid-rva91bnnFs" id="counters4-u">
-
-
-
-
-
+<section class="counters4 counters cid-rvaiJFPpsg" id="counters4-w">
     <div class="container pt-4">
-
-
         <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 35%;">
+            <div class="media-block m-auto" style="width: 51%;">
                 <div class="mbr-figure">
-                    <img src="../../../themes/Freeflow/assets/images/9-2.png" alt="" title="">
+                    <img src="../../../themes/Freeflow/assets/images/11.jpg" alt="" title="">
                 </div>
             </div>
             <div class="cards-block">
@@ -444,18 +407,13 @@
                         <div class="panel-item p-4 d-flex align-items-start">
                             <div class="card-img pr-3">
                                 <h3 class="img-text d-flex align-items-center justify-content-center how_title">
-                                    9
-                                </h3>
+                                    9</h3>
                             </div>
                             <div class="card-text pt-4">
-
-                                <p class="mbr-content-text mbr-fonts-style display-7">Authorize FreeFlowPages to connect with your 3Bot. When clicking ok you will effectively authorize your 3Bot to share data with FreeFlowPages.<br></p>
+                                <p class="mbr-content-text mbr-fonts-style display-7">Open your email, you should have received an email from <strong>info@openkyc.live</strong>. Click the provided URL to verify your email address.<br></p>
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -487,7 +445,7 @@
                             </div>
                             <div class="card-text pt-4">
 
-                                <p class="mbr-content-text mbr-fonts-style display-7"><br>Verify your email address.&nbsp;<br></p>
+                                <p class="mbr-content-text mbr-fonts-style display-7"><br>You can now use the 3Bot Connect app to log in to freeflowpages!<br></p>
                             </div>
                         </div>
                     </div>
@@ -500,119 +458,6 @@
     </div>
 </section>
 
-<section class="counters4 counters cid-rvaiJFPpsg" id="counters4-w">
-
-
-
-
-
-    <div class="container pt-4">
-
-
-        <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 51%;">
-                <div class="mbr-figure">
-                    <img src="../../../themes/Freeflow/assets/images/11.jpg" alt="" title="">
-                </div>
-            </div>
-            <div class="cards-block">
-                <div class="cards-container">
-                    <div class="card px-3 align-left col-12">
-                        <div class="panel-item p-4 d-flex align-items-start">
-                            <div class="card-img pr-3">
-                                <h3 class="img-text d-flex align-items-center justify-content-center how_title">
-                                    11</h3>
-                            </div>
-                            <div class="card-text pt-4">
-
-                                <p class="mbr-content-text mbr-fonts-style display-7">Open your email, you should have received an email from <strong>info@openkyc.live</strong>. Click the provided URL to verify your email address.<br></p>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="counters4 counters cid-rvakf32Npc" id="counters4-x">
-
-
-
-
-
-    <div class="container pt-4">
-
-
-        <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 51%;">
-                <div class="mbr-figure">
-                    <img src="../../../themes/Freeflow/assets/images/12.jpg" alt="" title="">
-                </div>
-            </div>
-            <div class="cards-block">
-                <div class="cards-container">
-                    <div class="card px-3 align-left col-12">
-                        <div class="panel-item p-4 d-flex align-items-start">
-                            <div class="card-img pr-3">
-                                <h3 class="img-text d-flex align-items-center justify-content-center how_title">
-                                    12</h3>
-                            </div>
-                            <div class="card-text pt-4">
-
-                                <p class="mbr-content-text mbr-fonts-style display-7"><br>A new page will open in your browser.<br></p>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="counters4 counters cid-rvalljOjCF" id="counters4-z">
-
-
-
-
-
-    <div class="container pt-4">
-
-        <h3 class="mbr-section-subtitle pb-5 align-center mbr-fonts-style display-5"><strong>On your mobile</strong></h3>
-        <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 35%;">
-                <div class="mbr-figure">
-                    <img src="../../../themes/Freeflow/assets/images/13-1.png" alt="" title="">
-                </div>
-            </div>
-            <div class="cards-block">
-                <div class="cards-container">
-                    <div class="card px-3 align-left col-12">
-                        <div class="panel-item p-4 d-flex align-items-start">
-                            <div class="card-img pr-3">
-                                <h3 class="img-text d-flex align-items-center justify-content-center how_title">
-                                    13<br></h3>
-                            </div>
-                            <div class="card-text pt-4">
-
-                                <p class="mbr-content-text mbr-fonts-style display-7"><strong>Go back to the 3Bot login app on your mobile</strong> phone and select the matching emoji and pin code<br></p>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <section class="features11 cid-rw0BBk8yVA mbr-parallax-background" id="features11-1k">
 
