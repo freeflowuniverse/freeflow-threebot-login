@@ -70,7 +70,7 @@
     </div>
 </section>
 
-<section class="header1 cid-rw0D6XMQKu" id="header16-1l">
+<!-- <section class="header1 cid-rw0D6XMQKu" id="header16-1l">
 
 
 
@@ -88,7 +88,7 @@
         </div>
     </div>
 
-</section>
+</section> -->
 
 <section class="cid-rw0DTq3z4l" id="video3-1m">
 
