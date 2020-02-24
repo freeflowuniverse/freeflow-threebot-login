@@ -57,12 +57,8 @@
     <div class="container align-left">
         <div class="media-container-column mbr-white col-md-12">
 
-            <h1 class="mbr-section-title py-3 mbr-fonts-style display-1">Register for <strong>FFP</strong> using <strong>3Bot login</strong></h1>
-            <p class="mbr-text py-3 mbr-fonts-style display-5"><br>If you have an Android, you can do the entire registration on your phone. Just follow the instructions from your smartphone’s browser, and it will prompt you to download the app and open it when needed.  <a href="#header16-1l">There is a video below</a> with all the steps!
-<br>
-<br>If you want to open FreeFlowPages on your computer, you will need to download the 3Bot app on your smartphone (either IOS or Android) and use both devices to complete the process.
-<br>
-<br>We are still working on the registration for FreeFlowPages using only an iPhone, we will update you when it’s ready!&nbsp;<br></p>
+            <h1 class="mbr-section-title py-3 mbr-fonts-style display-1">Register for <strong>FFP</strong> using <strong>3Bot Connect</strong></h1>
+            <p class="mbr-text py-3 mbr-fonts-style display-5"><br>Logging in to freeflowpages is done by use of the 3Bot Connect app on an android device or iPhone. This app is used both for creating an account and logging in to freeflowpages.<br></p>
 
         </div>
     </div>
