@@ -133,7 +133,7 @@
                             </div>
                             <div class="card-text pt-4">
 
-                                <p class="mbr-content-text mbr-fonts-style display-7">Open the app, navigate through the tutorial or select skip.</p>
+                                <p class="mbr-content-text mbr-fonts-style display-7"><br>Open the app, navigate through the tutorial or select skip.</p>
                             </div>
                         </div>
                     </div>
@@ -343,7 +343,7 @@
                             </div>
                             <div class="card-text pt-4">
 
-                                <p class="mbr-content-text mbr-fonts-style display-7">
+                                <p class="mbr-content-text mbr-fonts-style display-7"><br>
                                     Confirm everything is correct and finish</p>
                             </div>
                         </div>
