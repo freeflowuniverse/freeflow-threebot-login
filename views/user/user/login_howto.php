@@ -293,7 +293,7 @@
 
     <div class="container pt-4">
 
-        <h3 class="mbr-section-subtitle pb-5 align-center mbr-fonts-style display-5"><strong>On your computer</strong></h3>
+        
         <div class="media-container-row">
             <div class="media-block m-auto" style="width: 37%;">
                 <div class="mbr-figure">
@@ -428,7 +428,7 @@
 
     <div class="container pt-4">
 
-        <h3 class="mbr-section-subtitle pb-5 align-center mbr-fonts-style display-5"><strong>Back to your computer</strong></h3>
+        
         <div class="media-container-row">
             <div class="media-block m-auto" style="width: 51%;">
                 <div class="mbr-figure">
