@@ -117,7 +117,7 @@
 
 
         <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 49%;">
+            <div class="media-block m-auto" style="width: 40%;">
                 <div class="mbr-figure">
                     <img src="../../../themes/Freeflow/assets/images/3botlogin.png" alt="" title="">
                 </div>
@@ -147,7 +147,7 @@
 
     <div class="container pt-4">
         <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 49%;">
+            <div class="media-block m-auto" style="width: 40%;">
                 <div class="mbr-figure">
                     <img src="../../../themes/Freeflow/assets/images/3botlogin3.png" alt="" title="">
                 </div>
@@ -186,7 +186,7 @@
 
 
         <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 49%;">
+            <div class="media-block m-auto" style="width: 40%;">
                 <div class="mbr-figure">
                     <img src="../../../themes/Freeflow/assets/images/awesomescreenshot-3botlogin-2019-07-03-12-7.png" alt="" title="">
                 </div>
@@ -219,7 +219,7 @@
 <section class="counters4 counters cid-rv9fuh5VmJ" id="counters4-l">
     <div class="container pt-4">
         <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 49%;">
+            <div class="media-block m-auto" style="width: 40%;">
                 <div class="mbr-figure">
                     <img src="../../../themes/Freeflow/assets/images/key.png" alt="" title="">
                 </div>
@@ -295,7 +295,7 @@
 
         
         <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 37%;">
+            <div class="media-block m-auto" style="width: 40%;">
                 <div class="mbr-figure">
                     <img src="../../../themes/Freeflow/assets/images/write3random.png" alt="" title="">
                 </div>
@@ -327,7 +327,7 @@
 <section class="counters4 counters cid-rva66RjLlC" id="counters4-s">
     <div class="container pt-4">
         <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 34%;">
+            <div class="media-block m-auto" style="width: 40%;">
                 <div class="mbr-figure">
                     <img src="../../../themes/Freeflow/assets/images/6-1.png" alt="" title="">
                 </div>
@@ -364,7 +364,7 @@
 
 
         <div class="media-container-row">
-            <div class="media-block m-auto" style="width: 35%;">
+            <div class="media-block m-auto" style="width: 40%;">
                 <div class="mbr-figure">
                     <img src="../../../themes/Freeflow/assets/images/8-1.png" alt="" title="">
                 </div>
