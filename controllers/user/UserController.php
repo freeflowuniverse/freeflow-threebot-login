@@ -132,7 +132,7 @@ class UserController extends Controller
         $email = $result['email']['email'];
         $sei = $result['email']['sei'];
 
-        $client -> setUri('https://openkyc.live');
+        $client -> setUri('https://openkyc.live/verification/verify-sei');
         $client -> setHeaders(array('Content-Type' => 'application/json'));
         $client->setMethod('POST');
         $client -> setRawBody(Json::encode(['signedEmailIdentifier' => $sei]));
